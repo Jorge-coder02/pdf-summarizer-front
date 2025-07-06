@@ -9,40 +9,54 @@ interface Props {
 
 export const PDFPreview = ({ file }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const desiredWidth = 500;
-  const desiredHeight = 800;
 
   useEffect(() => {
+    let cancelled = false;
+    const canvas = canvasRef.current;
+
     const render = async () => {
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-      const page = await pdf.getPage(1); // Obtener la primera página
+      const page = await pdf.getPage(1);
 
-      // Obtener viewport base sin escalar
       const unscaledViewport = page.getViewport({ scale: 1 });
+      const maxHeight = window.innerHeight * 0.4;
+      const scale = maxHeight / unscaledViewport.height;
 
-      // Calcular escala proporcional para que encaje completamente
-      const scaleX = desiredWidth / unscaledViewport.width;
-      const scaleY = desiredHeight / unscaledViewport.height;
-      const scale = Math.min(scaleX, scaleY); // mantener proporciones
+      const viewport = page.getViewport({ scale, rotation: 0 });
 
-      // Aplicar escala y rotación real
-      const viewport = page.getViewport({ scale, rotation: page.rotate });
-
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
+      if (!canvas || cancelled) return;
 
       const context = canvas.getContext("2d");
       if (!context) return;
 
+      // 🧼 Limpieza del canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Asignamos nuevas dimensiones
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      // Renderizamos la página
       await page.render({ canvasContext: context, viewport }).promise;
     };
 
-    render(); // Llamar a la función de renderizado
+    render();
+
+    return () => {
+      cancelled = true;
+      if (canvas) {
+        const context = canvas.getContext("2d");
+        context?.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    };
   }, [file]);
 
-  return <canvas ref={canvasRef} className="mt-4 rounded shadow-md" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="mt-4 rounded shadow-md border border-gray-300"
+      style={{ maxWidth: "100%", height: "auto" }}
+    />
+  );
 };

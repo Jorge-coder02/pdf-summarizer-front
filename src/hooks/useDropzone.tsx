@@ -13,6 +13,7 @@ export const useMyDropzone = () => {
     setFiles(acceptedFiles);
   }, []);
 
+  // Manejo de archivos rechazados
   const onDropRejected = useCallback((fileRejections: FileRejection[]) => {
     const rejection = fileRejections[0];
     if (!rejection) return;
@@ -42,5 +43,5 @@ export const useMyDropzone = () => {
     multiple: false,
   });
 
-  return { ...dropzone, files, errorMessage };
+  return { ...dropzone, files, errorMessage, setFiles };
 };

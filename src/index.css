@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  background-color: rgb(146, 251, 216);
+  background-color: #f8fafc; /* Cambia el color de fondo a un gris claro */
 }
