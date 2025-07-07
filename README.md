@@ -22,27 +22,20 @@
 - ✅ pdf-parse -> Extraer texto (backend)
 - ✅ CohereAI -> IA para resumir textos
 
-
 ## 🧱 Arquitectura General
 
-## 🧱 Arquitectura General
-
-Frontend (React)
-   |
-   v
-[POST] /upload (archivo PDF)
-   |
-   v
-Backend (Node + Express)
-   |
-   v
-pdf-parse --> extrae texto
-   |
-   v
-Cohere API --> resumen
-   |
-   v
+Frontend (React)<br>
+↓<br>
+[POST] /upload (archivo PDF)<br>
+↓<br>
+Backend (Node + Express)<br>
+↓<br>
+pdf-parse → extrae texto<br>
+↓<br>
+Cohere API → resumen<br>
+↓<br>
 Respuesta al frontend
+
 
 ## 📦 Instalación
 
