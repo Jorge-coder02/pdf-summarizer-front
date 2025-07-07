@@ -25,14 +25,24 @@
 
 ## 🧱 Arquitectura General
 
-```mermaid
-flowchart TD
-    A[Frontend (React)] --> B[[POST /upload (archivo PDF)]]
-    B --> C[Backend (Node + Express)]
-    C --> D[pdf-parse → extrae texto]
-    D --> E[Cohere API → resumen]
-    E --> F[Respuesta al Frontend]
-```
+## 🧱 Arquitectura General
+
+Frontend (React)
+   |
+   v
+[POST] /upload (archivo PDF)
+   |
+   v
+Backend (Node + Express)
+   |
+   v
+pdf-parse --> extrae texto
+   |
+   v
+Cohere API --> resumen
+   |
+   v
+Respuesta al frontend
 
 ## 📦 Instalación
 
