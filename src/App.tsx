@@ -51,16 +51,41 @@ export const App = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${BACKEND_URL}/upload`, {
+      const uploadRes = await fetch(`${BACKEND_URL}/upload`, {
         method: "POST",
         body: formData,
       });
-      const text = await response.text();
-      const data = JSON.parse(text);
-      setSummary(data.summary);
+      const { id } = await uploadRes.json();
+
+      // Polling para obtener resumen
+      const pollInterval = 2000;
+      const maxAttempts = 30;
+      let attempts = 0;
+
+      const poll = async () => {
+        const res = await fetch(`${BACKEND_URL}/result/${id}`);
+        const data = await res.json();
+
+        if (data.status === "done") {
+          setSummary(data.summary);
+          setIsLoading(false);
+        } else if (data.status === "error") {
+          console.error("Error al procesar:", data.error);
+          setIsLoading(false);
+        } else {
+          attempts++;
+          if (attempts < maxAttempts) {
+            setTimeout(poll, pollInterval);
+          } else {
+            console.error("Tiempo agotado esperando el resumen");
+            setIsLoading(false);
+          }
+        }
+      };
+
+      poll();
     } catch (err) {
-      console.error("Error al enviar el archivo:", err);
-    } finally {
+      console.error("Error al subir el archivo:", err);
       setIsLoading(false);
     }
   };
