@@ -22,10 +22,17 @@
 - ✅ pdf-parse -> Extraer texto (backend)
 - ✅ CohereAI -> IA para resumir textos
 
+
 ## 🧱 Arquitectura General
 
- ```mermaid flowchart TD A[Frontend (React)] --> B[[POST /upload (archivo PDF)]] B --> C[Backend (Node + Express)] C --> D[pdf-parse → extrae texto] D --> E[Cohere API → resumen] E --> F[Respuesta al Frontend] ``` 
-
+```mermaid
+flowchart TD
+    A[Frontend (React)] --> B[[POST /upload (archivo PDF)]]
+    B --> C[Backend (Node + Express)]
+    C --> D[pdf-parse → extrae texto]
+    D --> E[Cohere API → resumen]
+    E --> F[Respuesta al Frontend]
+```
 
 ## 📦 Instalación
 
