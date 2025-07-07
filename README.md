@@ -31,6 +31,7 @@ flowchart TD
     C --> D[pdf-parse → extrae texto]
     D --> E[Cohere API → resumen]
     E --> F[Respuesta al Frontend]
+```
 
 
 ## 📦 Instalación
