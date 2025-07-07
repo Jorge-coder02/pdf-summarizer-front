@@ -6,6 +6,9 @@
 # To-do:
 
 - Subir a producción - front y back (back mover rutas si procede)
+- Icono
+- Meter en portfolio
+- Post linkedn
 - Traducir en front al recibir respuesta?
 - Poder moverme entre páginas del archivo subido
 

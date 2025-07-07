@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useRef } from "react";
 import { useMyDropzone } from "./hooks/useDropzone"; // hook que maneja el drag and drop de archivos
 import { PDFPreview } from "./components/PDFPreview";
