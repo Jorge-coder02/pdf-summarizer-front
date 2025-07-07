@@ -5,7 +5,6 @@
 
 # To-do:
 
-- Funcionalidad al botón (reutilizar)
 - Subir a producción - front y back (back mover rutas si procede)
 - Traducir en front al recibir respuesta?
 - Poder moverme entre páginas del archivo subido
@@ -14,7 +13,7 @@
 
 Frontend (React)
 ↓
-[POST] /api/summarize (archivo PDF)
+[POST] /upload (archivo PDF)
 ↓
 Backend (Node + Express)
 ↓
@@ -26,6 +25,6 @@ Respuesta al frontend
 
 # Herramientas:
 
-- pdfjs
-- pdf-parse
+- pdfjs -> Previsualizar
+- pdf-parse (backend) -> Extraer texto del PDF
 - Cohere

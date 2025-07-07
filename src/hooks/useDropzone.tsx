@@ -35,13 +35,22 @@ export const useMyDropzone = () => {
     setFiles([]);
   }, []);
 
-  const dropzone = useDropzone({
+  const { getRootProps, getInputProps, open, ...dropzoneRest } = useDropzone({
     accept: { "application/pdf": [".pdf"] },
     maxSize: MAX_SIZE,
     onDrop,
     onDropRejected,
     multiple: false,
+    noClick: true, // <- necesario para usar open manualmente
   });
 
-  return { ...dropzone, files, errorMessage, setFiles };
+  return {
+    ...dropzoneRest,
+    getRootProps,
+    getInputProps,
+    files,
+    errorMessage,
+    setFiles,
+    open,
+  };
 };

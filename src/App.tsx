@@ -6,6 +6,7 @@ import { getNumPages } from "./utils/pdf"; // importar función para obtener nú
 import LoadingDots from "./assets/LoadingDots";
 import FileDropzone from "./components/FileDropzone";
 import flechatop from "./assets/flechatop.svg"; // asegúrate de que la ruta sea correcta
+import { Button } from "./components/Button";
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(false); // Estado de carga
@@ -13,7 +14,8 @@ export const App = () => {
   const [summary, setSummary] = useState<string | null>(null); // Estado para el resumen
   const summaryRef = useRef<HTMLDivElement>(null);
 
-  const { files, setFiles, errorMessage, open } = useMyDropzone(); // Hook personalizado para manejar la carga de archivos
+  const { files, setFiles, errorMessage, open, getInputProps } =
+    useMyDropzone(); // Hook personalizado para manejar la carga de archivos
 
   // Obtener número de páginas del PDF
   useEffect(() => {
@@ -59,10 +61,8 @@ export const App = () => {
         body: formData,
       });
       const text = await response.text();
-      console.log("Respuesta bruta:", text);
       const data = JSON.parse(text); // así ves el error si no es JSON
       setSummary(data.summary); // Asignar el resumen al estado
-      console.log("Resumen:", data.summary);
     } catch (err) {
       console.error("Error al enviar el archivo:", err);
     } finally {
@@ -82,7 +82,7 @@ export const App = () => {
 
   return (
     <div className="min-h-[100vh] flex flex-col gap-y-12 items-center justify-center pt-16 pb-60">
-      <h1 className="text-4xl font-bold text-center">PDF Summarizer</h1>
+      <h1 className="text-5xl font-bold text-center">PDF Summarizer</h1>
       {/* Contenedor principal */}
       <div
         className={`flex flex-col md:flex-row px-6 md:px-0 gap-8 max-w-4xl mx-auto ${
@@ -90,24 +90,23 @@ export const App = () => {
         }`}
       >
         {/* Contenedor de carga de archivos */}
-        <div className="flex flex-col justify-center items-center rounded-lg shadow-lg border-2 border-black p-8 h-[300px] overflow-y-auto">
-          <h1 className="text-2xl text-center font-bold mb-4">
+        <div className="flex flex-col justify-center items-center rounded-lg shadow-lg border-2 border-black h-[320px] px-16">
+          <h1 className="text-2xl text-center font-bold mb-2">
             Sube tu archivo PDF
           </h1>
-          <div
-            className="max-w-[420px] flex flex-col justify-center items-center"
-            style={{ margin: "auto", padding: 10 }}
-          >
+          <div className="flex flex-col items-center gap-y-4 w-full max-w-[420px]">
             <FileDropzone onDrop={(acceptedFiles) => setFiles(acceptedFiles)} />
-            <button
+            <input {...getInputProps()} style={{ display: "none" }} />
+            <Button
               onClick={open}
-              className="flex items-center gap-x-2 mt-4 px-6 py-3 bg-[#4F46E5] text-white rounded-lg font-semibold hover:bg-[#4F46E5]/80"
+              icon={<img src={flechatop} alt="Flecha arriba" />}
             >
-              <img src={flechatop} alt="flecha arriba" className="w-6 h-6" />
               Subir PDF
-            </button>
+            </Button>
             {errorMessage && (
-              <div style={{ marginTop: 10, color: "red" }}>{errorMessage}</div>
+              <div className="text-red-500 text-sm text-center">
+                {errorMessage}
+              </div>
             )}
           </div>
         </div>
@@ -118,7 +117,7 @@ export const App = () => {
             files.length > 0
               ? "flex flex-col justify-center items-center"
               : "hidden"
-          } rounded-lg shadow-lg border-2 border-black px-8 py-2`}
+          } rounded-lg shadow-lg border-2 border-black px-12 py-2`}
         >
           <h2 className="text-xl font-bold mb-2 text-center pt-2">
             Previsualización
@@ -140,13 +139,12 @@ export const App = () => {
               ? `${numPages} página${numPages === 1 ? "" : "s"}`
               : "Cargando..."}
           </span>
-          <button
-            disabled={isLoading}
-            onClick={handleSummarize}
-            className="mt-4 px-8 py-3 bg-[#4F46E5] text-white rounded-lg font-semibold hover:bg-[#4F46E5]/80"
-          >
-            {isLoading ? "Resumiendo..." : "Resumir PDF"}
-          </button>
+
+          {!summary && (
+            <Button onClick={handleSummarize} disabled={isLoading}>
+              {isLoading ? "Resumiendo..." : "Resumir PDF"}
+            </Button>
+          )}
         </div>
       </div>
       {/* Contenedor de carga */}
@@ -161,7 +159,9 @@ export const App = () => {
       {/* Contenedor de resumen */}
       {summary && (
         <div ref={summaryRef} className="max-w-4xl mx-auto px-6 md:px-0">
-          <h2 className="text-2xl font-bold mb-4">Resumen del PDF</h2>
+          <h2 className="text-2xl font-bold mb-4">
+            Resumen del PDF <span className="text-gray-500">(inglés)</span>
+          </h2>
           <div className="bg-gray-100 p-6 rounded-lg shadow-md">
             <p className="text-gray-800 whitespace-pre-wrap">{summary}</p>
           </div>

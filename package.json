@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@types/classnames": "^2.3.4",
     "@types/pdfjs-dist": "^2.10.378",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",

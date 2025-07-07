@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 body {
-  background-color: #f8fafc; /* Cambia el color de fondo a un gris claro */
+  background-color: #f8fafc;
+  font-family: "Inter", sans-serif;
 }
