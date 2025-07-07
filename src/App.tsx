@@ -12,6 +12,7 @@ export const App = () => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [summary, setSummary] = useState<string | null>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; //  || "http://localhost:5000"
 
   const { files, setFiles, errorMessage, open, getInputProps } =
     useMyDropzone();
@@ -50,13 +51,10 @@ export const App = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(
-        "https://pdf-summarizer-back-production.up.railway.app/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${BACKEND_URL}/upload`, {
+        method: "POST",
+        body: formData,
+      });
       const text = await response.text();
       const data = JSON.parse(text);
       setSummary(data.summary);
