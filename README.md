@@ -1,33 +1,92 @@
-<!-- 1. Soltar el archivo -> se valida tamaño y formato pdf al soltar
-2. Se previsualiza a la derecha (flex-row padre y a la derecha hidden según estado) -->
+# 📋📖 PDF Summarizer (Resumir archivos pdf)
 
-<!-- 3. Aceptar -> se hace llamada al backend, que llama a la OpenAPI y devuelve resumen, que muestro abajo. -->
+[![PDF Summarizer](https://img.shields.io/badge/Status-Complete-green)](https://github.com/Jorge-coder02/pdf-summarizer-front)
+[![Licencia](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
-# To-do:
+🔗 **Visitar sitio:** [Ver en vivo](https://padsummarizer.up.railway.app/) https://pdfsummarizer.up.railway.app/
 
-- Subir a producción - front y back (back mover rutas si procede)
-- Icono
-- Meter en portfolio
-- Post linkedn
-- Traducir en front al recibir respuesta?
-- Poder moverme entre páginas del archivo subido
+## Sobre el sitio
+**PDF Summarizer** es una aplicación que permite la subida de archivos PDF y resumir su contenido con IA.
 
-🧱 ARQUITECTURA GENERAL
+## 🚀 Tecnologías Principales (proyecto completo)
 
-Frontend (React)
-↓
-[POST] /upload (archivo PDF)
-↓
-Backend (Node + Express)
-↓
-pdf-parse → extrae texto
-↓
-Cohere API → resumen
-↓
-Respuesta al frontend
+![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3.3-06B6D4?logo=tailwind-css)
+![Node.js](https://img.shields.io/badge/Node.js-22.14.0-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5.1.0-000000?logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-8.0.4-47A248?logo=mongodb&logoColor=white)
 
-# Herramientas:
+## ✨ Herramientas utilizadas
 
-- pdfjs -> Previsualizar
-- pdf-parse (backend) -> Extraer texto del PDF
-- Cohere
+- ✅ pdfjs -> Previsualizar
+- ✅ pdf-parse -> Extraer texto (backend)
+- ✅ CohereAI -> IA para resumir textos
+
+## 📦 Instalación
+
+1. **Clonar el repositorio**
+
+```bash
+git clone https://github.com/Jorge-coder02/pdf-summarizer-front.git
+cd tienda-ropa-frontend
+```
+
+2. **Instalar dependencias**
+
+```bash
+npm install
+```
+
+o si usas Yarn
+
+```bash
+yarn install
+```
+
+3. **Ejecutar en modo desarrollo**
+
+```bash
+npm run dev
+```
+
+## El servidor estará disponible en:
+
+## http://localhost:3000
+
+## 🗂️ Estructura del Proyecto
+
+```plaintext
+📦 root
+├── 📁 public/                  # Archivos públicos accesibles
+│
+├── 📁 src/
+│   ├── 📁 components/
+│   ├── 📁 hooks/
+│   ├── 📁 utils/
+│
+├── ⚙️  .env                    # Variables de entorno (ignorado por Git)
+├── 🎨 tailwind.config.js
+├── 📜 README.md                # Documentación principal del proyecto
+
+```
+
+# Versiones
+
+- React: `19.1.0`
+- Tailwind CSS: `3.3.2`
+
+## Dependencias principales
+- axios: `1.10.0`
+
+## Dependencias de desarrollo:
+
+- eslint: `9.29.0`
+- vite: `7.0.0`
+- postcss: `8.4.21`
+
+## Licencia
+Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+
+Si tienes preguntas o sugerencias, no dudes en abrir un issue o PR.
+
+
